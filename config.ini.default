@@ -1,11 +1,11 @@
 [database]
 driver = ODBC Driver 18 for SQL Server
-server = 127.0.0.1
-database = xxxxxx
-user = xxxxx
-password = xxxxxx
+server = beegin-dev.database.windows.net
+database = beegin-dev
+user = beegin-dev
+password = bt2p4HCSRpNrSr53
 encrypt = yes
 
 [openai]
-api_key = xxxxxx
-org = xxxx
+api_key = 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
+org = Personal

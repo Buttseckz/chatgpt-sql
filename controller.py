@@ -1,6 +1,6 @@
 import json
 from chatgpt import ChatGPT
-from google_sql_connector import GoogleCloudSQL
+from azure_sql_connector import AzureSQL
 import configparser
 
 # Read the config file
@@ -23,8 +23,8 @@ class Controller:
 
     def __init__(self):
         # initialise all the things
-        self.google_sql = GoogleCloudSQL(driver, server, database, user, password, encrypt)
-        self.google_sql.connect()
+        self.sql_server = AzureSQL(driver, server, database, user, password, encrypt)
+        self.sql_server.connect()
         self.chatModel = ChatGPT(openai_api_key, openai_org, openai_model)
 
     def run(self, message, sender, counter=0):
@@ -41,10 +41,10 @@ class Controller:
             case "SERVER":
                 match response["action"]:
                     case "QUERY":
-                        result = self.google_sql.execute_query(response["message"])
+                        result = self.sql_server.execute_query(response["message"])
                         return self.run(result, None, counter + 1)
                     case "SCHEMA":
-                        result = self.google_sql.execute_schema(response["message"])
+                        result = self.sql_server.execute_schema(response["message"])
                         return self.run(result, None, counter + 1)
                     case _:
                         print('error invalid action')
